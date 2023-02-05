@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  kbc_patient:      
+    container_name: kbcPatient
+    environment:
+      - DeviceDatabaseSettings:ConnectionString=mongodb://root:155202Asd...@mongodb:27017
+      - PatientsDatabaseSettings:ConnectionString=mongodb://root:155202Asd...@mongodb:27017
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8000:80"
+    volumes:
+      - ${HOME}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+  kbc_democore:
+    container_name: kbcDemoCore
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "8001:80"
+  mongo:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    environment:
+     
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 155202Asd...
+    ports:
+       - "27017:27017"

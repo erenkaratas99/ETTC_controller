@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  kbc_patient:
+    container_name: kbcPatient
+    image: ${DOCKER_REGISTRY-}kbcpatient
+    build:
+      context: .
+      dockerfile: KBC_Patient/Dockerfile
+  kbc_democore:
+    container_name: kbcDemoCore
+    image: ${DOCKER_REGISTRY-}kbcdemocore
+    build:
+      context: .
+      dockerfile: KBC_demoCore/Dockerfile
+  mongo:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 155202Asd...
+    ports:
+       - "27017:27017"

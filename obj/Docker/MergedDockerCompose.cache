@@ -1,0 +1,38 @@
+services:
+  kbc_democore:
+    build:
+      context: C:\Users\kutlu\Desktop\KBC\KBC_src
+      dockerfile: KBC_demoCore/Dockerfile
+    container_name: kbcDemoCore
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: kbcdemocore
+    ports:
+    - published: 8001
+      target: 80
+  kbc_patient:
+    build:
+      context: C:\Users\kutlu\Desktop\KBC\KBC_src
+      dockerfile: KBC_Patient/Dockerfile
+    container_name: kbcPatient
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: kbcpatient
+    ports:
+    - published: 8000
+      target: 80
+    volumes:
+    - /ASP.NET/Https:/root/.aspnet/https:ro
+    - /.microsoft/usersecrets:/root/.microsoft/usersecrets:rw
+  mongo:
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: 155202Asd...
+      MONGO_INITDB_ROOT_USERNAME: root
+    image: mongo
+    ports:
+    - published: 27017
+      target: 27017
+    restart: always
+version: '3.4'
